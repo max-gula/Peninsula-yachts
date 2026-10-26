@@ -1,0 +1,70 @@
+[
+  {
+    "leadId": "lead_1793004812366_yo4czm",
+    "dateTime": "2026-10-26T08:53:32.366Z",
+    "email": "max@gmail.com",
+    "phone": "0483 096 555",
+    "fullName": "Max Gulabovski",
+    "address": "54 Rosehill Road, Lower Plenty Victoria 3093",
+    "lastCompletedStep": 3,
+    "leadStatus": "Completed",
+    "source": "Aperio Website",
+    "syncedToGoogleSheets": true,
+    "marketingConsent": false,
+    "agreedToTerms": true
+  },
+  {
+    "leadId": "lead_1793005946753_5lfcwh",
+    "dateTime": "2026-10-26T09:12:26.753Z",
+    "email": "max@gmail.com",
+    "phone": "0490 151 830",
+    "fullName": "rteget",
+    "address": "54 Rose Street, Brunswick Victoria 3056",
+    "lastCompletedStep": 3,
+    "leadStatus": "Completed",
+    "source": "Aperio Website",
+    "syncedToGoogleSheets": true,
+    "marketingConsent": false,
+    "agreedToTerms": true
+  },
+  {
+    "leadId": "lead_1793007266883_11fp25",
+    "dateTime": "2026-10-26T09:34:26.883Z",
+    "email": "test.draw@mornington.com.au",
+    "phone": "0421 999 888",
+    "fullName": "Giselle Montague",
+    "address": "Portsea, Victoria",
+    "lastCompletedStep": 3,
+    "leadStatus": "Completed",
+    "source": "Aperio Website",
+    "syncedToGoogleSheets": true,
+    "marketingConsent": true,
+    "agreedToTerms": true
+  },
+  {
+    "leadId": "lead_1793008346094_emynne",
+    "dateTime": "2026-10-26T09:52:26.094Z",
+    "email": "vercel.test@mornington.com.au",
+    "phone": "0433 111 222",
+    "fullName": "Vercel Deploy Test",
+    "address": "Sorrento, Victoria",
+    "lastCompletedStep": 3,
+    "leadStatus": "Completed",
+    "source": "Aperio Website",
+    "syncedToGoogleSheets": true,
+    "marketingConsent": true,
+    "agreedToTerms": true
+  },
+  {
+    "leadId": "lead_1793008777017_b44nlq",
+    "dateTime": "2026-10-26T09:59:37.017Z",
+    "email": "lead.test@mornington.com",
+    "phone": "",
+    "fullName": "",
+    "address": "",
+    "lastCompletedStep": 1,
+    "leadStatus": "Incomplete",
+    "source": "Aperio Website",
+    "syncedToGoogleSheets": true
+  }
+]

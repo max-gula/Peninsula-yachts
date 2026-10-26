@@ -1,0 +1,6 @@
+{
+  "name": "Peninsula Yachts",
+  "description": "Private luxury yacht charters on the Mornington Peninsula and Port Phillip Bay, Melbourne.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
