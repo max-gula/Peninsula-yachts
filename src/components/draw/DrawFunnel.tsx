@@ -169,7 +169,7 @@ export const DrawFunnel: React.FC<DrawFunnelProps> = ({
       {/* Full-bleed background image with slow cinematic ocean ambience */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/src/assets/images/hero_water_portsea_1792956725001.jpg"
+          src="/images/hero_water_portsea_1792956725001.jpg"
           alt="Portsea and Sorrento waters"
           className="w-full h-full object-cover object-center animate-subtle-drift filter brightness-[0.6] contrast-[1.08]"
           referrerPolicy="no-referrer"

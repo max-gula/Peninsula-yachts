@@ -21,7 +21,6 @@ export default function App() {
   const [modalTab, setModalTab] = useState<'terms' | 'guidelines' | 'privacy'>('terms');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [entriesCount, setEntriesCount] = useState(0);
-  const [notification, setNotification] = useState<string | null>(null);
 
   useEffect(() => {
     // Initial entries count
@@ -34,13 +33,6 @@ export default function App() {
     setEntriesCount(list.length);
   };
 
-  const showToast = (msg: string) => {
-    setNotification(msg);
-    setTimeout(() => {
-      setNotification(null);
-    }, 4500);
-  };
-
   const handleOpenTermsModal = (tab: 'terms' | 'guidelines' | 'privacy' = 'terms') => {
     setModalTab(tab);
     setIsModalOpen(true);
@@ -48,19 +40,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#080D15] text-[#FAF8F5] font-sans antialiased selection:bg-[#C5A869]/30 selection:text-white">
-      {/* Toast Notification for CRM / Database updates */}
-      {notification && (
-        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-50 bg-[#0E1624] border border-[#C5A869] p-3 sm:p-4 shadow-2xl animate-in slide-in-from-bottom-3 duration-200">
-          <div className="flex items-start gap-2.5">
-            <span className="w-2 h-2 mt-1 rounded-full bg-[#C5A869] shrink-0" />
-            <div className="text-xs text-[#FAF8F5]">
-              <p className="font-medium text-[#C5A869] uppercase tracking-wider text-[10px]">Database Recorded</p>
-              <p className="mt-0.5 text-[#FAF8F5]/85 leading-snug">{notification}</p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Global Top Bar */}
       <Navbar
         currentPage={currentPage}
@@ -86,7 +65,6 @@ export default function App() {
             onOpenPrivacy={() => handleOpenTermsModal('privacy')}
             onSubmissionSuccess={() => {
               refreshCount();
-              showToast('Entry securely recorded to database and dispatched to CRM.');
             }}
           />
         )}
@@ -96,7 +74,6 @@ export default function App() {
           <CharterEnquiry
             onSuccess={() => {
               refreshCount();
-              showToast('Charter quote request saved to database and sent to team.');
             }}
           />
         )}

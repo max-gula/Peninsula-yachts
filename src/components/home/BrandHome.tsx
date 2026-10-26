@@ -13,7 +13,7 @@ export const BrandHome: React.FC<BrandHomeProps> = ({ onNavigate }) => {
       {/* Full-bleed background image with slow cinematic ocean ambience */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/src/assets/images/yacht_at_sorrento_1792956725616.jpg"
+          src="/images/yacht_at_sorrento_1792956725616.jpg"
           alt="Peninsula Yachts anchored off Sorrento"
           className="w-full h-full object-cover object-center animate-subtle-drift filter brightness-[0.52] contrast-[1.1]"
           referrerPolicy="no-referrer"

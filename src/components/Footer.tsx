@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({
           <span aria-hidden="true" className="text-[#C5A869]/50">·</span>
           <a
             href="mailto:peninsulaluxuryyachts@gmail.com"
-            className="hover:text-[#C5A869] transition-colors lowercase tracking-normal text-[11px] sm:text-xs text-[#FAF8F5]/80"
+            className="hover:text-[#C5A869] transition-colors lowercase tracking-normal text-[11px] sm:text-xs text-[#FAF8F5]/80 whitespace-nowrap"
           >
             peninsulaluxuryyachts@gmail.com
           </a>

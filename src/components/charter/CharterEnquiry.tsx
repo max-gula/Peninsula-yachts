@@ -270,7 +270,10 @@ export const CharterEnquiry: React.FC<CharterEnquiryProps> = ({ onSuccess }) => 
           </p>
 
           <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-[#FAF8F5]/70 font-light leading-relaxed">
-            Our charter director is reviewing your bespoke itinerary for {submittedData.guests} guests departing from {submittedData.departure}. A tailored quote and vessel profile will be sent to <span className="text-[#FAF8F5] underline break-all">{submittedData.email}</span>.
+            Our charter director is reviewing your bespoke itinerary for {submittedData.guests} guests departing from {submittedData.departure}. A tailored quote and vessel profile will be sent to:
+            <span className="block mt-1.5 font-medium text-[#FAF8F5] underline whitespace-nowrap overflow-hidden text-ellipsis">
+              {submittedData.email}
+            </span>
           </p>
 
           <div className="mt-6 pt-5 border-t border-[#FAF8F5]/10 text-left text-xs text-[#FAF8F5]/60 space-y-2">
@@ -324,7 +327,7 @@ export const CharterEnquiry: React.FC<CharterEnquiryProps> = ({ onSuccess }) => 
       {/* Hero vessel visual banner */}
       <div className="mb-6 sm:mb-10 overflow-hidden border border-[#FAF8F5]/10 shadow-xl relative aspect-[16/8] sm:aspect-[21/9]">
         <img
-          src="/src/assets/images/yacht_at_sorrento_1792956725616.jpg"
+          src="/images/yacht_at_sorrento_1792956725616.jpg"
           alt="Peninsula Yachts vessel at Sorrento"
           className="w-full h-full object-cover object-center filter brightness-[0.85]"
           referrerPolicy="no-referrer"
