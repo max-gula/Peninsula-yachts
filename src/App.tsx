@@ -15,15 +15,82 @@ import { TermsModal } from './components/terms/TermsModal';
 import { EntriesDrawer } from './components/admin/EntriesDrawer';
 import { getDrawEntries } from './services/storage';
 
+function getPageFromPath(pathname: string): ActivePage {
+  const cleanPath = pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  if (cleanPath === '/charters' || cleanPath === '/charter') {
+    return 'charters';
+  }
+  if (cleanPath === '/terms' || cleanPath === '/privacy' || cleanPath === '/guidelines') {
+    return 'terms';
+  }
+  if (cleanPath === '/home' || cleanPath === '/overview') {
+    return 'home';
+  }
+  // "/" = draw
+  return 'draw';
+}
+
+function getPathFromPage(page: ActivePage): string {
+  switch (page) {
+    case 'charters':
+      return '/charters';
+    case 'terms':
+      return '/terms';
+    case 'home':
+      return '/home';
+    case 'draw':
+    default:
+      return '/';
+  }
+}
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<ActivePage>('draw');
+  const [currentPage, setCurrentPage] = useState<ActivePage>(() => {
+    if (typeof window !== 'undefined') {
+      return getPageFromPath(window.location.pathname);
+    }
+    return 'draw';
+  });
+
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [modalTab, setModalTab] = useState<'terms' | 'guidelines' | 'privacy'>('terms');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [entriesCount, setEntriesCount] = useState(0);
 
+  // Synchronise browser URL with History API
+  const handleNavigate = (page: ActivePage, replace = false) => {
+    setCurrentPage(page);
+    const targetPath = getPathFromPage(page);
+    if (typeof window !== 'undefined' && window.location.pathname !== targetPath) {
+      if (replace) {
+        window.history.replaceState({ page }, '', targetPath);
+      } else {
+        window.history.pushState({ page }, '', targetPath);
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Handle browser back and forward buttons (popstate)
   useEffect(() => {
-    // Initial entries count
+    const handlePopState = () => {
+      const page = getPageFromPath(window.location.pathname);
+      setCurrentPage(page);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  // Sync initial URL if needed
+  useEffect(() => {
+    const initialPage = getPageFromPath(window.location.pathname);
+    const targetPath = getPathFromPage(initialPage);
+    if (window.location.pathname !== targetPath && window.location.pathname === '/draw') {
+      window.history.replaceState({ page: initialPage }, '', targetPath);
+    }
     const initial = getDrawEntries();
     setEntriesCount(initial.length);
   }, []);
@@ -43,7 +110,7 @@ export default function App() {
       {/* Global Top Bar */}
       <Navbar
         currentPage={currentPage}
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={handleNavigate}
         onOpenAdmin={() => setIsAdminOpen(true)}
         entriesCount={entriesCount}
       />
@@ -53,14 +120,14 @@ export default function App() {
         {/* Brand Home (Reached when clicking the logo) */}
         {currentPage === 'home' && (
           <BrandHome
-            onNavigate={(page) => setCurrentPage(page)}
+            onNavigate={handleNavigate}
           />
         )}
 
         {/* Enter the Draw Funnel */}
         {currentPage === 'draw' && (
           <DrawFunnel
-            onNavigate={(page) => setCurrentPage(page)}
+            onNavigate={handleNavigate}
             onOpenTerms={() => handleOpenTermsModal('terms')}
             onOpenPrivacy={() => handleOpenTermsModal('privacy')}
             onSubmissionSuccess={() => {
@@ -86,7 +153,7 @@ export default function App() {
 
       {/* Global Footer */}
       <Footer
-        onNavigate={(page) => setCurrentPage(page)}
+        onNavigate={handleNavigate}
         onOpenTermsModal={() => handleOpenTermsModal('terms')}
         onOpenPrivacyModal={() => handleOpenTermsModal('privacy')}
       />

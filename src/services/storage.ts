@@ -1,7 +1,5 @@
 import { DrawEntry, CharterEnquiry } from '../types';
 
-const DRAW_ENTRIES_KEY = 'peninsula_yachts_draw_entries_v1';
-const CHARTER_ENQUIRIES_KEY = 'peninsula_yachts_charters_v1';
 const CRM_WEBHOOK_KEY = 'peninsula_yachts_crm_webhook_url';
 
 export const PROMOTION_CONFIG = {
@@ -13,77 +11,21 @@ export const PROMOTION_CONFIG = {
   contactEmail: 'peninsulaluxuryyachts@gmail.com',
 };
 
-// Initial realistic entries for Mornington Peninsula demo
-const INITIAL_ENTRIES: DrawEntry[] = [
-  {
-    id: 'entry_1729001001',
-    email: 'c.harrington@toorak.com.au',
-    mobile: '0412 884 921',
-    fullName: 'Charlotte Harrington',
-    suburb: 'Toorak',
-    agreedToTerms: true,
-    marketingConsent: true,
-    timestamp: '2026-10-24T09:14:22.000Z',
-    source: 'Instagram'
-  },
-  {
-    id: 'entry_1729001002',
-    email: 'marcus.vane@sorrento.co',
-    mobile: '0423 559 104',
-    fullName: 'Marcus Vane',
-    suburb: 'Sorrento',
-    agreedToTerms: true,
-    marketingConsent: false,
-    timestamp: '2026-10-24T14:38:10.000Z',
-    source: 'Instagram'
-  }
-];
-
 export function getDrawEntries(): DrawEntry[] {
-  try {
-    const raw = localStorage.getItem(DRAW_ENTRIES_KEY);
-    if (!raw) {
-      localStorage.setItem(DRAW_ENTRIES_KEY, JSON.stringify(INITIAL_ENTRIES));
-      return INITIAL_ENTRIES;
-    }
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading draw entries', err);
-    return INITIAL_ENTRIES;
-  }
+  return [];
 }
 
 export async function saveDrawEntry(entryData: Omit<DrawEntry, 'id' | 'timestamp' | 'source'>): Promise<DrawEntry> {
-  const newEntry: DrawEntry = {
+  return {
     ...entryData,
     id: 'entry_' + Date.now(),
     timestamp: new Date().toISOString(),
-    source: 'Website / Instagram Link'
+    source: 'Website'
   };
-
-  const existing = getDrawEntries();
-  const updated = [newEntry, ...existing];
-  try {
-    localStorage.setItem(DRAW_ENTRIES_KEY, JSON.stringify(updated));
-  } catch (e) {
-    console.error('Could not save to localStorage', e);
-  }
-
-  // Dispatch to CRM webhook if configured
-  await dispatchToCrmWebhook('draw_entry', newEntry);
-
-  return newEntry;
 }
 
 export function getCharterEnquiries(): CharterEnquiry[] {
-  try {
-    const raw = localStorage.getItem(CHARTER_ENQUIRIES_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw);
-  } catch (err) {
-    console.error('Error reading charter enquiries', err);
-    return [];
-  }
+  return [];
 }
 
 export async function saveCharterEnquiry(enquiryData: Omit<CharterEnquiry, 'id' | 'timestamp'>): Promise<CharterEnquiry> {
@@ -92,14 +34,6 @@ export async function saveCharterEnquiry(enquiryData: Omit<CharterEnquiry, 'id' 
     id: 'charter_' + Date.now(),
     timestamp: new Date().toISOString()
   };
-
-  const existing = getCharterEnquiries();
-  const updated = [newEnquiry, ...existing];
-  try {
-    localStorage.setItem(CHARTER_ENQUIRIES_KEY, JSON.stringify(updated));
-  } catch (e) {
-    console.error('Could not save to localStorage', e);
-  }
 
   // Send to backend endpoint which synchronises with Google Sheets
   const response = await fetch('/api/enquiry', {

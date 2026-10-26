@@ -227,7 +227,7 @@ export async function handleStep1Email(data: {
 }): Promise<{ success: boolean; leadId: string; message: string }> {
   const email = sanitizeForSpreadsheet(data.email.trim().toLowerCase());
   const leadId = data.leadId && data.leadId.trim() ? data.leadId.trim() : generateLeadId();
-  const source = data.source || 'Aperio Website';
+  const source = data.source || 'Website';
   const now = new Date().toISOString();
 
   // Retrieve existing record or create new
@@ -306,7 +306,7 @@ export async function handleStep2Phone(data: {
       address: '',
       lastCompletedStep: 2,
       leadStatus: 'Incomplete',
-      source: 'Aperio Website',
+      source: 'Website',
       syncedToGoogleSheets: false,
     };
     leadsCache.set(leadId, record);
@@ -368,7 +368,7 @@ export async function handleStep3Details(data: {
       address: addressSanitized,
       lastCompletedStep: 3,
       leadStatus: 'Completed',
-      source: 'Aperio Website',
+      source: 'Website',
       syncedToGoogleSheets: false,
       marketingConsent: Boolean(data.marketingConsent),
       agreedToTerms: Boolean(data.agreedToTerms),
@@ -403,12 +403,6 @@ export async function handleStep3Details(data: {
   };
 }
 
-// Get all leads (for local admin verification)
-export function getAllLeads(): LeadRecord[] {
-  return Array.from(leadsCache.values()).sort(
-    (a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime()
-  );
-}
 
 // Append enquiry to local backup queue
 function appendToEnquiriesQueue(payload: Record<string, unknown>) {

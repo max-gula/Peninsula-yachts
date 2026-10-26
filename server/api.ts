@@ -4,7 +4,6 @@ import {
   handleStep2Phone,
   handleStep3Details,
   handleCharterEnquiry,
-  getAllLeads,
   checkRateLimit,
 } from './leads.js';
 
@@ -64,7 +63,7 @@ export function registerApi(app: Express): Express {
       const result = await handleStep1Email({
         email,
         leadId,
-        source: source || 'Aperio Website',
+        source: source || 'Website',
       });
 
       return res.json(result);
@@ -189,15 +188,6 @@ export function registerApi(app: Express): Express {
       const message = err instanceof Error ? err.message : 'Failed to record charter enquiry.';
       return res.status(400).json({ success: false, error: message });
     }
-  });
-
-  // Verification / internal status endpoint for leads
-  app.get('/api/leads', (_req: Request, res: Response) => {
-    const leads = getAllLeads();
-    res.json({
-      total: leads.length,
-      leads,
-    });
   });
 
   return app;

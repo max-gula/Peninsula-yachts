@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PROMOTION_CONFIG, saveDrawEntry } from '../../services/storage';
+import { PROMOTION_CONFIG } from '../../services/storage';
 import { ActivePage } from '../../types';
 import { BrandLogo } from '../BrandLogo';
 import { AddressAutocomplete } from '../common/AddressAutocomplete';
@@ -140,16 +140,6 @@ export const DrawFunnel: React.FC<DrawFunnelProps> = ({
         address: address.trim(),
         marketingConsent: Boolean(marketingConsent),
         agreedToTerms: true,
-      });
-
-      // Save to local storage for local admin and data export continuity
-      await saveDrawEntry({
-        email: email.trim().toLowerCase(),
-        mobile: fullMobile,
-        fullName: fullName.trim(),
-        suburb: address.trim(),
-        agreedToTerms: true,
-        marketingConsent: Boolean(marketingConsent),
       });
 
       setIsSubmitting(false);

@@ -72,7 +72,7 @@ export async function submitLeadStep1(email: string): Promise<{ success: boolean
   const existingLeadId = getStoredLeadId();
   const payload: Record<string, unknown> = {
     email: email.trim().toLowerCase(),
-    source: 'Aperio Website',
+    source: 'Website',
   };
 
   if (existingLeadId) {
